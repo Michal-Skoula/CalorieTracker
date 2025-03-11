@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AddMealController;
+use App\Livewire\LogMeal;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -19,6 +21,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+	Route::get('add', [AddMealController::class, 'view'])->name('app.meal.add');
+	Route::post('add', [AddMealController::class, 'store'])->name('app.meal.store');
 });
 
 require __DIR__.'/auth.php';
