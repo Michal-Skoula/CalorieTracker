@@ -38,6 +38,12 @@ return [
             'report' => false,
         ],
 
+		'meals' => [
+			'driver' => 'local',
+			'root' => storage_path('app/meals'),
+			'visibility' => 'private'
+		],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

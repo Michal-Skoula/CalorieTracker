@@ -356,7 +356,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the path to the views directory.
          * 
-         * This method returns the first configured path in the array of view paths.
+         * This method returns the first configured path in the array of add paths.
          *
          * @param string $path
          * @return string 
@@ -2950,7 +2950,7 @@ namespace Illuminate\Support\Facades {
      */
     class Blade {
         /**
-         * Compile the view at the given path.
+         * Compile the add at the given path.
          *
          * @param string|null $path
          * @return void 
@@ -3372,7 +3372,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Get the path to the compiled version of a view.
+         * Get the path to the compiled version of a add.
          *
          * @param string $path
          * @return string 
@@ -3386,7 +3386,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Determine if the view at the given path is expired.
+         * Determine if the add at the given path is expired.
          *
          * @param string $path
          * @return bool 
@@ -11020,11 +11020,11 @@ namespace Illuminate\Support\Facades {
      * @method static void alwaysReturnPath(string $address)
      * @method static void alwaysTo(string $address, string|null $name = null)
      * @method static \Illuminate\Mail\SentMessage|null html(string $html, mixed $callback)
-     * @method static \Illuminate\Mail\SentMessage|null plain(string $view, array $data, mixed $callback)
-     * @method static string render(string|array $view, array $data = [])
-     * @method static mixed onQueue(\BackedEnum|string|null $queue, \Illuminate\Contracts\Mail\Mailable $view)
-     * @method static mixed queueOn(string $queue, \Illuminate\Contracts\Mail\Mailable $view)
-     * @method static mixed laterOn(string $queue, \DateTimeInterface|\DateInterval|int $delay, \Illuminate\Contracts\Mail\Mailable $view)
+     * @method static \Illuminate\Mail\SentMessage|null plain(string $add, array $data, mixed $callback)
+     * @method static string render(string|array $add, array $data = [])
+     * @method static mixed onQueue(\BackedEnum|string|null $queue, \Illuminate\Contracts\Mail\Mailable $add)
+     * @method static mixed queueOn(string $queue, \Illuminate\Contracts\Mail\Mailable $add)
+     * @method static mixed laterOn(string $queue, \DateTimeInterface|\DateInterval|int $delay, \Illuminate\Contracts\Mail\Mailable $add)
      * @method static \Symfony\Component\Mailer\Transport\TransportInterface getSymfonyTransport()
      * @method static \Illuminate\Contracts\View\Factory getViewFactory()
      * @method static void setSymfonyTransport(\Symfony\Component\Mailer\Transport\TransportInterface $transport)
@@ -11432,7 +11432,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Send a new message using a view.
+         * Send a new message using a add.
          *
          * @param \Illuminate\Contracts\Mail\Mailable|string|array $view
          * @param array $data
@@ -11447,7 +11447,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Send a new message synchronously using a view.
+         * Send a new message synchronously using a add.
          *
          * @param \Illuminate\Contracts\Mail\Mailable|string|array $mailable
          * @param array $data
@@ -16061,7 +16061,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Create a new response for a given view.
+         * Create a new response for a given add.
          *
          * @param string|array $view
          * @param array $data
@@ -16501,7 +16501,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Register a new route that returns a view.
+         * Register a new route that returns a add.
          *
          * @param string $uri
          * @param string $view
@@ -17912,7 +17912,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Determine if the given view exists.
+         * Determine if the given add exists.
          *
          * @param string $view
          * @return bool 
@@ -21119,7 +21119,7 @@ namespace Illuminate\Support\Facades {
      */
     class View {
         /**
-         * Get the evaluated view contents for the given view.
+         * Get the evaluated add contents for the given add.
          *
          * @param string $path
          * @param \Illuminate\Contracts\Support\Arrayable|array $data
@@ -21134,7 +21134,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Get the evaluated view contents for the given view.
+         * Get the evaluated add contents for the given add.
          *
          * @param string $view
          * @param \Illuminate\Contracts\Support\Arrayable|array $data
@@ -21149,7 +21149,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Get the first view that actually exists from the given list.
+         * Get the first add that actually exists from the given list.
          *
          * @param array $views
          * @param \Illuminate\Contracts\Support\Arrayable|array $data
@@ -21165,7 +21165,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Get the rendered content of the view based on a given condition.
+         * Get the rendered content of the add based on a given condition.
          *
          * @param bool $condition
          * @param string $view
@@ -21181,7 +21181,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Get the rendered content of the view based on the negation of a given condition.
+         * Get the rendered content of the add based on the negation of a given condition.
          *
          * @param bool $condition
          * @param string $view
@@ -21213,7 +21213,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Determine if a given view exists.
+         * Determine if a given add exists.
          *
          * @param string $view
          * @return bool 
@@ -21226,7 +21226,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Get the appropriate view engine for the given path.
+         * Get the appropriate add engine for the given path.
          *
          * @param string $path
          * @return \Illuminate\Contracts\View\Engine 
@@ -21316,7 +21316,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Add a location to the array of view locations.
+         * Add a location to the array of add locations.
          *
          * @param string $location
          * @return void 
@@ -21329,7 +21329,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Prepend a location to the array of view locations.
+         * Prepend a location to the array of add locations.
          *
          * @param string $location
          * @return void 
@@ -21384,7 +21384,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Register a valid view extension and its engine.
+         * Register a valid add extension and its engine.
          *
          * @param string $extension
          * @param string $engine
@@ -21447,7 +21447,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Get the view finder instance.
+         * Get the add finder instance.
          *
          * @return \Illuminate\View\ViewFinderInterface 
          * @static 
@@ -21459,7 +21459,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Set the view finder instance.
+         * Set the add finder instance.
          *
          * @param \Illuminate\View\ViewFinderInterface $finder
          * @return void 
@@ -21625,7 +21625,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Get the first view that actually exists from the given list, and start a component.
+         * Get the first add that actually exists from the given list, and start a component.
          *
          * @param array $names
          * @param array $data
@@ -21692,7 +21692,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Register a view creator event.
+         * Register a add creator event.
          *
          * @param array|string $views
          * @param \Closure|string $callback
@@ -21706,7 +21706,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Register multiple view composers via an array.
+         * Register multiple add composers via an array.
          *
          * @param array $composers
          * @return array 
@@ -21719,7 +21719,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Register a view composer event.
+         * Register a add composer event.
          *
          * @param array|string $views
          * @param \Closure|string $callback
@@ -21733,7 +21733,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Call the composer for a given view.
+         * Call the composer for a given add.
          *
          * @param \Illuminate\Contracts\View\View $view
          * @return void 
@@ -21746,7 +21746,7 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
-         * Call the creator for a given view.
+         * Call the creator for a given add.
          *
          * @param \Illuminate\Contracts\View\View $view
          * @return void 
