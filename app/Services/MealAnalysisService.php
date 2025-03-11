@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use OpenAI\Laravel\Facades\OpenAI;
 
 class MealAnalysisService
@@ -61,17 +60,11 @@ class MealAnalysisService
 
 		return (array) json_decode($result->choices[0]->message->content);
 	}
-	public static function imageToBase64(UploadedFile $file, string $disk = 'meals'): string
+	public static function imageToBase64(UploadedFile $file): string
 	{
 		$base64 = base64_encode(file_get_contents($file->getRealPath()));
 		$mime_type = $file->getMimeType();
 
 		return "data:$mime_type;base64,$base64";
-	}
-
-
-	protected function isValid(array $results): bool
-	{
-		 return true;
 	}
 }

@@ -12,13 +12,14 @@ class MealController extends Controller
 {
     public function add()
 	{
-		$data = '';
-		return view('app.meal.add', compact('data'));
+		return view('app.meal.add');
 	}
+
 	public function edit()
 	{
-
+		return view('app.meal.edit');
 	}
+
 	public function create(Request $request)
 	{
 		$request->validate([
@@ -28,8 +29,7 @@ class MealController extends Controller
 		]);
 
 
-		if(Day::where('date', $request->get('day'))->doesntExist())
-		{
+		if(Day::where('date', $request->get('day'))->doesntExist()) {
 			Day::create([
 				'user_id' => auth()->user()->id,
 				'date' => $request->get('day'),
