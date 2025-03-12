@@ -20,7 +20,7 @@ return new class extends Migration
 
 			$table->string('name');
 			$table->text('description');
-			$table->enum('type', array_column(MealType::cases(), 'value'))->default('unknown');
+			$table->enum('type', MealType::valuesToArray());
 
 			$table->integer('calories');
 			$table->integer('protein');

@@ -23,6 +23,8 @@ namespace App\Models{
  * @property string $weight_change_goal
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Meal> $meals
+ * @property-read int|null $meals_count
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Day newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Day newQuery()
@@ -47,28 +49,6 @@ namespace App\Models{
  * @property int $day_id
  * @property string $image
  * @property string|null $prompt
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\MealData|null $mealData
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereDayId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereImage($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal wherePrompt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereUpdatedAt($value)
- */
-	class Meal extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * 
- *
- * @property int $id
- * @property int $meal_id
  * @property string $name
  * @property string $description
  * @property string $type
@@ -78,23 +58,37 @@ namespace App\Models{
  * @property int $fats
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Meal $meal
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData whereCalories($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData whereCarbs($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData whereFats($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData whereMealId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData whereProtein($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|MealData whereUpdatedAt($value)
+ * @property-read \App\Models\Day $day
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereCalories($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereCarbs($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereDayId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereFats($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal wherePrompt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereProtein($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Meal whereUpdatedAt($value)
  */
-	class MealData extends \Eloquent {}
+	class Meal extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Settings newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Settings newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Settings query()
+ */
+	class Settings extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -113,6 +107,7 @@ namespace App\Models{
  * @property-read int|null $days_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \App\Models\Settings|null $settings
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()

@@ -12,19 +12,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('days', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
 			$table->foreignId('user_id')->constrained()->cascadeOnDelete();
-			$table->date('date');
-			$table->float('weight')->nullable();
+
 			$table->integer('calorie_goal')->default(0);
-			$table->enum('weight_change_goal', WeightChangeGoal::valuesToArray());
+			$table->enum('weight_change_goal', WeightChangeGoal::valuesToArray())->default('cutting');
+
+
             $table->timestamps();
-
-			$table->unique(['user_id','date']);
-
-			$table->index('user_id');
-			$table->index('day');
         });
     }
 
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('days');
+        Schema::dropIfExists('settings');
     }
 };

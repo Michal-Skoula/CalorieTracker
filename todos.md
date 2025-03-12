@@ -1,0 +1,15 @@
+# Todos
+- [x] Implement settings
+- [x] Get data from OpenAI
+- [ ] Build the log view
+- [ ] Build an at a glance dashboard view
+- [ ] Create an onboarding flow
+  - [ ] basic health data - calculate basal metabolism
+  - [ ] set a goal - bulking or cutting, weight goal
+- [ ] Add an AI Coach which you can ask questions about your fitness - has access to data from the app using an API of sorts
+- [ ] Build a landing page
+- [ ] Implement payment processing
+- [ ] Figure out the business model - freemium X free trial?
+  - [ ] Decide what to paywall,
+  - [ ] Free trial duration
+  - [ ] Model usage and cost optimization

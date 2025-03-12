@@ -25,7 +25,7 @@ class MealAnalysisService
 
 	public static string $language_specific_prompt = 'Piš své odpovědi POUZE v češtině';
 
-	public static function analyse($base64_image, $prompt = ''): array
+	public static function analyze($base64_image, $prompt = ''): array
 	{
 		$result = OpenAI::chat()->create([
 			"model" => "gpt-4o",
@@ -40,12 +40,12 @@ class MealAnalysisService
 						[
 							"type" => "image_url",
 							"image_url" => [
-								"url" => $base64_image
+								"url" => $base64_image,
 							]
 						],
 						[
 							"type" => "text",
-							"text" => $prompt ?? ''
+							"text" => $prompt ?? '',
 						]
 					]
 				]
@@ -55,7 +55,7 @@ class MealAnalysisService
 			"max_completion_tokens" => 2048,
 			"top_p" => 1,
 			"frequency_penalty" => 0,
-			"presence_penalty" => 0
+			"presence_penalty" => 0,
 		]);
 
 		return (array) json_decode($result->choices[0]->message->content);

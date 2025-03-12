@@ -7,23 +7,25 @@
     
     <form action="{{route('app.meal.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="grid sm:grid-cols-2 grid-cols-1 mb-10 gap-10">
-            <flux:field>
+        <div class="grid sm:grid-cols-2 grid-cols-1 mb-2 gap-10">
+            <flux:field class="block!">
                 <flux:label>Picture of meal</flux:label>
                 <flux:description>Make sure the whole meal is visible and lit up</flux:description>
                 <flux:input type="file" name="image" required/>
-                <flux:error name="image"/>
             </flux:field>
-            <flux:field class="sm:row-auto row-span-1">
+            <flux:field class="block!">
                 <flux:label>Day</flux:label>
                 <flux:description>When did you have this?</flux:description>
                 <flux:input type="date" name="day" :value="today()->format('Y-m-d')" required/>
-                <flux:error name="day"/>
             </flux:field>
         </div>
+        <div class="grid sm:grid-cols-2 grid-cols-1 mb-10 gap-10">
+            <flux:error name="image"/>
+            <flux:error name="day"/>
+        </div>
         <div class="mb-10">
-            <flux:field>
-                <flux:label>Description <flux:badge color="blue">Optional</flux:badge></flux:label>
+            <flux:field class="block!">
+                <flux:label>Description <flux:badge color="blue" size="sm">Optional</flux:badge></flux:label>
                 <flux:description>Help the AI by giving it more context about the meal, such as portion size, count, etc.</flux:description>
                 <flux:textarea
                     rows="3"
@@ -34,12 +36,9 @@
             </flux:field>
         </div>
         
-        <flux:button
-            type="submit"
-            icon-trailing="sparkles"
-            variant="primary"
-        >
-            Analyze meal
-        </flux:button>
+        <div class="flex gap-4 items-center">
+            <flux:button type="submit" icon="sparkles" variant="primary" class="cursor-pointer">Analyze meal</flux:button>
+        </div>
+        
     </form>
 </x-layouts.app>
