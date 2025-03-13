@@ -2,11 +2,6 @@
     @include('partials.settings-heading')
 
     <x-settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
-        <flux:radio.group wire:model="payment" label="Select your payment method">
-            <flux:radio value="cc" label="Credit Card" checked />
-            <flux:radio value="paypal" label="Paypal" />
-            <flux:radio value="ach" label="Bank transfer" />
-        </flux:radio.group>
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
             <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
 

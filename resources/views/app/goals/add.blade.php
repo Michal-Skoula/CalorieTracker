@@ -13,17 +13,20 @@
                     label="Losing weight"
                     description="Sets your calorie goal as the maximum allowed daily calories."
                     value="cutting"
+                    name="weight_change_goal"
                     checked
                 />
                 <flux:radio
                     label="Gaining weight"
                     description="Sets your calorie goal as the daily minimum to reach."
                     value="bulking"
+                    name="weight_change_goal"
                 />
                 <flux:radio
                     label="Maintaining weight"
                     description="Checks if your daily calories are within 10% of your daily goal."
                     value="maintaining"
+                    name="weight_change_goal"
                 />
             </flux:radio.group>
             <flux:field class="block! ">
@@ -43,11 +46,6 @@
         <div class="grid sm:grid-cols-2 grid-cols-1 gap-10">
             <flux:error for="weight_change_goal"></flux:error>
         </div>
-        <flux:radio.group wire:model="payment" label="Select your payment method">
-            <flux:radio value="cc" label="Credit Card" checked />
-            <flux:radio value="paypal" label="Paypal" />
-            <flux:radio value="ach" label="Bank transfer" />
-        </flux:radio.group>
         
         <flux:button variant="primary" type="submit" class="cursor-pointer">Save changes</flux:button>
     </form>
