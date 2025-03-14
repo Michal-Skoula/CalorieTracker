@@ -2,12 +2,17 @@
 
 namespace App\Services;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use OpenAI\Laravel\Facades\OpenAI;
+use Spatie\Image\Enums\Fit;
+use Spatie\Image\Exceptions\CouldNotLoadImage;
+use Spatie\Image\Image;
 
 class MealAnalysisService
 {
-	public static string $system_prompt = <<<PROMPT
+	protected static string $system_prompt = <<<PROMPT
 		You are an expert nutritionist. Your job is to analyze the nutritional content of a meal based on the provided picture. The user may also provide a description, which you should factor in when analyzing the meal. If you do not recognize the image provided as food, make the `is_meal` value equal false.   
 
 		Return the data as a JSON object with the following keys:
@@ -23,11 +28,27 @@ class MealAnalysisService
 		If you are unsure of a value, leave it as `0` for a number value and `''` for a string.
 	PROMPT;
 
-	public static string $language_specific_prompt = 'Piš své odpovědi POUZE v češtině';
+	protected static string $language_specific_prompt = 'Piš své odpovědi POUZE v češtině.';
 
-	public static function analyze($base64_image, $prompt = ''): array
+	/**
+	 * @param  UploadedFile  $image
+	 * @param  string  $prompt
+	 * @return array
+	 */
+	public static function analyze(UploadedFile $image, string $prompt = ''): array
 	{
-		$result = OpenAI::chat()->create([
+		// static::optimizeImage($image); TODO: fix the optimizations, got stuck on  Spatie\Image\Exceptions\UnsupportedImageFormat:  Unsupported format ``
+
+		$base64_image = static::imageToBase64($image);
+
+		$result = static::callApi($base64_image, $prompt);
+
+		return (array) json_decode($result->choices[0]->message->content);
+	}
+
+	protected static function callApi($base64_image, $prompt)
+	{
+		return OpenAI::chat()->create([
 			"model" => "gpt-4o",
 			"messages" => [
 				[
@@ -57,14 +78,21 @@ class MealAnalysisService
 			"frequency_penalty" => 0,
 			"presence_penalty" => 0,
 		]);
-
-		return (array) json_decode($result->choices[0]->message->content);
 	}
-	public static function imageToBase64(UploadedFile $file): string
+
+	protected static function imageToBase64(UploadedFile $image): string
 	{
-		$base64 = base64_encode(file_get_contents($file->getRealPath()));
-		$mime_type = $file->getMimeType();
+		$base64 = base64_encode(file_get_contents($image->getRealPath()));
+		$mime_type = $image->getMimeType();
 
 		return "data:$mime_type;base64,$base64";
+	}
+
+	protected static function optimizeImage(UploadedFile $image)
+	{
+		Image::load($image->getRealPath())
+			->fit(Fit::FillMax, 400, 300)
+			->optimize()
+			->save($image->getRealPath());
 	}
 }
