@@ -7,6 +7,7 @@ use App\Models\Meal;
 use App\Services\MealAnalysisService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Log;
 use OpenAI\Exceptions\TransporterException;
 
@@ -30,9 +31,8 @@ class MealController extends Controller
 			'prompt' => 'nullable|string',
 		]);
 
-		$day = null;
 		if(Day::where('date', $request->get('date'))->doesntExist()) {
-			$day = Day::create([
+			Day::create([
 				'user_id' 				=> auth()->user()->id,
 				'date' 					=> $request->get('date'),
 				'calorie_goal' 			=> auth()->user()->settings()->first()->calorie_goal ?? 0,
@@ -57,9 +57,11 @@ class MealController extends Controller
 			]);
 		}
 
+		$day = Day::where('date', $request->get('date'))->first();
+
 		if($response['is_meal']) {
 			Meal::create([
-				'day_id' 		=> Day::where('date', $request->get('date'))->first()->id,
+				'day_id' 		=> $day->id,
 				'image' 		=> $request->file('image')->hashName(),
 				'prompt' 		=> $request->get('prompt') ?? '',
 
@@ -73,6 +75,7 @@ class MealController extends Controller
 			]);
 
 			$day->updateData();
+
 			$request->file('image')->store(
 				path: auth()->user()->id, // Each user has their own directory
 				options: 'meals' // This is the disk name

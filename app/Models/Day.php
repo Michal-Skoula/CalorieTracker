@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class Day extends Model
 {
 	protected $fillable = [
-		'user_id','date','weight','calorie_goal','weight_change_goal'
+		'user_id','date','weight','calorie_goal','weight_change_goal','calories','protein','fats','carbs'
 	];
 	protected $casts = [
 		'weight_change_goal' => WeightChangeGoal::class
@@ -38,14 +38,18 @@ class Day extends Model
 		return $this->meals()->sum('protein');
 	}
 
-	public function updateData(): void
+	public function updateData()
 	{
 		$this->update([
 			'calories' 	=> $this->getCalories(),
-			'proteins' 	=> $this->getProteins(),
+			'protein' 	=> $this->getProteins(),
 			'carbs' 	=> $this->getCarbs(),
 			'fats' 		=> $this->getFats(),
 		]);
+
+		echo $this->getCalories();
+
+		return $this;
 	}
 
 	public function canBeFormatted($format = 'Y-m-d'): bool
@@ -99,7 +103,6 @@ class Day extends Model
 		return Auth::user()->days()
 			->orderBy('date','desc')
 			->limit($days)
-			->get()
 			->avg($type);
 	}
 
