@@ -14,7 +14,7 @@ class MealController extends Controller
 {
     public function add()
 	{
-		return view('app.meal.add');
+		return view('app.meal');
 	}
 
 	public function edit()

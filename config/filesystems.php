@@ -41,7 +41,9 @@ return [
 		'meals' => [
 			'driver' => 'local',
 			'root' => storage_path('app/meals'),
-			'visibility' => 'private'
+			'url' => env('APP_URL').'/meals',
+//			'visibility' => 'private' TODO: turn back into private on deployment
+			'visibility' => 'public'
 		],
 
         'public' => [
@@ -79,8 +81,10 @@ return [
     |
     */
 
+	///home/michal/Documents/Development/Projects/calorie-tracker-v2/storage/app/meals/1
     'links' => [
         public_path('storage') => storage_path('app/public'),
+		public_path('meals') => storage_path('app/meals')
     ],
 
 ];

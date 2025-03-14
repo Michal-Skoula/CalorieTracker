@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\SettingsController;
+use App\Livewire\App\Dashboard;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\FitnessGoals;
 use App\Livewire\Settings\Password;
@@ -12,12 +13,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
+
+	Route::get('dashboard', Dashboard::class)->name('dashboard');
 
 	Route::prefix('settings')->group(function() {
 		Route::get('profile', Profile::class)->name('settings.profile');

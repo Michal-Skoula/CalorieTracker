@@ -18,7 +18,7 @@ class SettingsController extends Controller
 		$weight_modifiers = WeightChangeGoal::toAssociativeArray();
 		$isChecked = fn($goal) => $goal === WeightChangeGoal::getCurrentGoal() ? 'checked' : '';
 
-		return view('app.goals.add', compact([
+		return view('app.goals', compact([
 			'calorie_goal',
 			'weight_modifiers',
 			'isChecked',
