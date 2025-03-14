@@ -16,10 +16,16 @@ return new class extends Migration
             $table->id();
 			$table->foreignId('user_id')->constrained()->cascadeOnDelete();
 			$table->date('date');
-			$table->float('weight')->nullable();
 			$table->integer('calorie_goal')->default(0);
 			$table->enum('weight_change_goal', WeightChangeGoal::valuesToArray());
-            $table->timestamps();
+
+			$table->float('weight')->default(0);
+			$table->integer('calories')->default(0);
+			$table->integer('fats')->default(0);
+			$table->integer('carbs')->default(0);
+			$table->integer('protein')->default(0);
+
+			$table->timestamps();
 
 			$table->unique(['user_id','date']);
 

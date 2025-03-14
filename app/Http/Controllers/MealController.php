@@ -25,15 +25,16 @@ class MealController extends Controller
 	public function create(Request $request)
 	{
 		$request->validate([
-			'day' => 'required|date|before_or_equal:today',
+			'date' => 'required|date|before_or_equal:today',
 			'image' => 'image|mimes:jpeg,jpg,png,webp,gif|required',
 			'prompt' => 'nullable|string',
 		]);
 
-		if(Day::where('date', $request->get('day'))->doesntExist()) {
-			Day::create([
+		$day = null;
+		if(Day::where('date', $request->get('date'))->doesntExist()) {
+			$day = Day::create([
 				'user_id' 				=> auth()->user()->id,
-				'date' 					=> $request->get('day'),
+				'date' 					=> $request->get('date'),
 				'calorie_goal' 			=> auth()->user()->settings()->first()->calorie_goal ?? 0,
 				'weight_change_goal' 	=> auth()->user()->settings()->first()->weight_change_goal ?? 'cutting',
 			]);
@@ -58,7 +59,7 @@ class MealController extends Controller
 
 		if($response['is_meal']) {
 			Meal::create([
-				'day_id' 		=> Day::where('date', $request->get('day'))->first()->id,
+				'day_id' 		=> Day::where('date', $request->get('date'))->first()->id,
 				'image' 		=> $request->file('image')->hashName(),
 				'prompt' 		=> $request->get('prompt') ?? '',
 
@@ -71,6 +72,7 @@ class MealController extends Controller
 				'fats' 			=> $response['fats']
 			]);
 
+			$day->updateData();
 			$request->file('image')->store(
 				path: auth()->user()->id, // Each user has their own directory
 				options: 'meals' // This is the disk name

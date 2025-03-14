@@ -16,12 +16,12 @@
             <flux:field class="block!">
                 <flux:label>Day</flux:label>
                 <flux:description>When did you have this?</flux:description>
-                <flux:input type="date" name="day" :value="today()->format('Y-m-d')" required/>
+                <flux:input type="date" name="date" :value="today()->format('Y-m-d')" required/>
             </flux:field>
         </div>
         <div class="grid sm:grid-cols-2 grid-cols-1 mb-10 gap-10">
             <flux:error name="image"/>
-            <flux:error name="day"/>
+            <flux:error name="date"/>
         </div>
         <div class="mb-10">
             <flux:field class="block!">

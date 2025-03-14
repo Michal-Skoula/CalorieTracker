@@ -12,4 +12,26 @@ enum MealType: string
 	case Dinner = 'dinner';
 	case Snack = 'snack';
 	case Unknown = 'unknown';
+
+	public function getColor(): string
+	{
+		return match($this) {
+			MealType::Breakfast => 'yellow',
+			MealType::Lunch 	=> 'blue',
+			MealType::Dinner 	=> 'green',
+			MealType::Snack 	=> 'orange',
+			MealType::Unknown 	=> 'gray'
+		};
+	}
+
+	public function getName(): string
+	{
+		return match($this) {
+			MealType::Breakfast => 'Breakfast',
+			MealType::Lunch 	=> 'Lunch',
+			MealType::Dinner 	=> 'Dinner',
+			MealType::Snack 	=> 'Snack',
+			MealType::Unknown 	=> 'Unknown'
+		};
+	}
 }

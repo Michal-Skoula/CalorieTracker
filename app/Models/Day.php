@@ -2,17 +2,51 @@
 
 namespace App\Models;
 
+use App\Enums\WeightChangeGoal;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class Day extends Model
 {
 	protected $fillable = [
 		'user_id','date','weight','calorie_goal','weight_change_goal'
 	];
+	protected $casts = [
+		'weight_change_goal' => WeightChangeGoal::class
+	];
+	public function getCalories(): int
+	{
+		return $this->meals()->sum('calories');
+	}
+
+	public function getCarbs(): int
+	{
+		return $this->meals()->sum('carbs');
+	}
+
+	public function getFats(): int
+	{
+		return $this->meals()->sum('fats');
+	}
+
+	public function getProteins(): int
+	{
+		return $this->meals()->sum('protein');
+	}
+
+	public function updateData(): void
+	{
+		$this->update([
+			'calories' 	=> $this->getCalories(),
+			'proteins' 	=> $this->getProteins(),
+			'carbs' 	=> $this->getCarbs(),
+			'fats' 		=> $this->getFats(),
+		]);
+	}
 
 	public function canBeFormatted($format = 'Y-m-d'): bool
 	{
@@ -23,7 +57,7 @@ class Day extends Model
 	{
 		if(! $this->canBeFormatted()) {
 			throw new InvalidDateException(
-				field: "This day\'s date value is invalid, expected format 'Y-m-d'",
+				field: 'This day\'s date value is invalid, expected format Y-m-d',
 				value: $this->date,
 				code: 500
 			);
@@ -50,6 +84,23 @@ class Day extends Model
 		}
 
 		return Carbon::createFromFormat('Y-m-d', $this->date)->format('d.m.Y');
+	}
+
+	/**
+	 * Averages the values for a given measured stat over a select number of days.
+	 * If there are less logged days than what is requested, an average is still returned.
+	 *
+	 * @param int $days How many days should be averaged, starting from the last record and ignoring all days without data.
+	 * @param string $type What should be averaged. Options: [calories, protein, carbs, fats]
+	 * @return int|float
+	 */
+	public static function getAvg(string $type, int $days = 7): int|float
+	{
+		return Auth::user()->days()
+			->orderBy('date','desc')
+			->limit($days)
+			->get()
+			->avg($type);
 	}
 
 	public function user(): BelongsTo

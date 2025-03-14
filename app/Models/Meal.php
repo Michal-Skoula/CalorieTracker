@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\MealType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,10 @@ class Meal extends Model
 {
 	protected $fillable = [
 		'day_id','image','prompt','name','description','type','calories','protein','carbs','fats'
+	];
+
+	protected $casts = [
+		'type' => MealType::class
 	];
 
 	public function getImageUrl(): string
