@@ -2,12 +2,9 @@
 
 namespace App\Services;
 
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Log;
 use OpenAI\Laravel\Facades\OpenAI;
 use Spatie\Image\Enums\Fit;
-use Spatie\Image\Exceptions\CouldNotLoadImage;
 use Spatie\Image\Image;
 
 class MealAnalysisService
@@ -18,7 +15,7 @@ class MealAnalysisService
 		Return the data as a JSON object with the following keys:
 		- `is_meal`: boolean | Decide if the provided picture is a meal or not
 		- `name`: string | Descriptive name of the meal starting with a capital letter. 
-		- `description`: string | Summary of what you see in the image, along with the assumed portion sizes.
+		- `description`: string | Summary of what you see in the image, along with the estimated weights (in grams) of the food items. For example, "A medium-sized serving of spaghetti consisting of 100g of spaghetti, 40g of tomato sauce, and a small tomato to the side." If you cannot accurately determine the weight, provide an estimated range or use general terms like "a small portion" or "a large serving. Assume that this description may later be edited to provide more accurate results."
 		- `type`: string['breakfast','lunch','dinner','snack','unknown'] | Check which meal type this food is most likely to be. You may also use the background of the meal, such as when it is dark outside you may assume it to be dinner. When unsure, select unknown. you may ONLY use the provided options.
 		- `calories`: int |Estimated number of calories in the meal. 
 		- `protein` int | Estimated number of protein in the meal.  
@@ -28,7 +25,7 @@ class MealAnalysisService
 		If you are unsure of a value, leave it as `0` for a number value and `''` for a string.
 	PROMPT;
 
-	protected static string $language_specific_prompt = 'Piš své odpovědi POUZE v češtině.';
+	protected static string $language_specific_prompt = '';
 
 	/**
 	 * @param  UploadedFile  $image
@@ -88,7 +85,7 @@ class MealAnalysisService
 		return "data:$mime_type;base64,$base64";
 	}
 
-	protected static function optimizeImage(UploadedFile $image)
+	protected static function optimizeImage(UploadedFile $image): void
 	{
 		Image::load($image->getRealPath())
 			->fit(Fit::FillMax, 400, 300)
